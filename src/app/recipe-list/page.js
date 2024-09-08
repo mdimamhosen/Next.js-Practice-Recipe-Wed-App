@@ -1,10 +1,19 @@
+import RecipeList from "@/components/ui/recipe-list";
 import React from "react";
-
-const page = () => {
+async function getRecipes() {
+  try {
+    const apiResponse = await fetch("https://dummyjson.com/recipes");
+    const data = await apiResponse.json();
+    return data?.recipes;
+  } catch (error) {
+    throw new Error("Failed to fetch recipes");
+  }
+}
+const page = async () => {
+  const recipes = await getRecipes();
   return (
     <div>
-      <h1>Recipe List</h1>
-      <p>Coming soon...</p>
+      <RecipeList recipes={recipes} />
     </div>
   );
 };
