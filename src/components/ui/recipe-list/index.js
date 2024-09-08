@@ -3,16 +3,24 @@ import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import Link from "next/link";
 
 export default function RecipeList({ recipes }) {
   return (
     <div className="w-11/12 mx-auto">
-      <h1 className="text-2xl font-bold mb-6">Recipe List</h1>
+      <div className="mb-4">
+        <Link
+          href="/"
+          className="flex items-center justify-center bg-blue-500 text-white rounded-lg p-2"
+        >
+          Home
+        </Link>
+        <h1 className="text-2xl font-bold mt-4">Recipe List</h1>
+      </div>
       <div className="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {recipes.map((recipe) => (
           <Card
@@ -46,9 +54,14 @@ export default function RecipeList({ recipes }) {
                   ))}
                 </ol>
               </div>
+              <h2 className="text-lg font-semibold mt-4">
+                Rating: {recipe.rating}
+              </h2>
             </CardContent>
             <CardFooter>
-              <Button>View Recipe</Button>
+              <Link href={`/recipe-list/${recipe.id}`} passHref>
+                <Button>View Recipe</Button>
+              </Link>
             </CardFooter>
           </Card>
         ))}
